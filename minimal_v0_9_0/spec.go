@@ -1,6 +1,9 @@
 package minimal_v0_9_0
 
-import "github.com/protolambda/zssz"
+import (
+	"github.com/protolambda/zssz"
+	"github.com/protolambda/zssz/bitfields"
+)
 
 type Version [4]byte
 type Epoch uint64
@@ -66,8 +69,12 @@ type IndexedAttestation struct {
 
 type CommitteeBits []byte
 
-func (*CommitteeBits) BitLimit() uint64 {
+func (*CommitteeBits) Limit() uint64 {
 	return MAX_VALIDATORS_PER_COMMITTEE
+}
+
+func (cb CommitteeBits) BitLen() uint64 {
+	return bitfields.BitlistLen(cb)
 }
 
 type PendingAttestation struct {

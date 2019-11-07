@@ -98,15 +98,9 @@ type Eth1Data struct {
 	BlockHash    Hash
 }
 
-type SlotRoots []Hash
-
-func (*SlotRoots) Limit() uint64 {
-	return SLOTS_PER_HISTORICAL_ROOT
-}
-
 type HistoricalBatch struct {
-	BlockRoots SlotRoots
-	StateRoots SlotRoots
+	BlockRoots [SLOTS_PER_HISTORICAL_ROOT]Hash
+	StateRoots [SLOTS_PER_HISTORICAL_ROOT]Hash
 }
 
 type DepositData struct {
@@ -280,8 +274,8 @@ type BeaconState struct {
 	Fork        Fork
 	// History
 	LatestBlockHeader BeaconBlockHeader
-	BlockRoots        SlotRoots
-	StateRoots        SlotRoots
+	BlockRoots        [SLOTS_PER_HISTORICAL_ROOT]Hash
+	StateRoots        [SLOTS_PER_HISTORICAL_ROOT]Hash
 	HistoricalRoots   HistoricalRoots
 	// Eth1
 	Eth1Data         Eth1Data
